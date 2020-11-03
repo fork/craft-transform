@@ -1,0 +1,44 @@
+{
+    "name": "fork/transform",
+    "description": "Transform Craft Element and field data structures",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "transform"
+    ],
+    "support": {
+        "docs": "https://github.com/fork/transform/blob/master/README.md",
+        "issues": "https://github.com/fork/transform/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fork Unstable Media GmbH",
+            "homepage": "https://www.fork.de"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.5.0",
+        "league/fractal": "^0.18.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "fork\\transform\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Transform",
+        "handle": "transform",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/fork/transform/master/CHANGELOG.md",
+        "components": {
+            "data": "fork\\transform\\services\\Data"
+        },
+        "class": "fork\\transform\\Transform"
+    }
+}
