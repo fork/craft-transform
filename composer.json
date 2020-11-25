@@ -1,5 +1,5 @@
 {
-    "name": "fork/transform",
+    "name": "fork/craft-transform",
     "description": "Transform Craft Element and field data structures",
     "type": "craft-plugin",
     "version": "1.0.0",
@@ -11,8 +11,8 @@
         "transform"
     ],
     "support": {
-        "docs": "https://github.com/fork/transform/blob/master/README.md",
-        "issues": "https://github.com/fork/transform/issues"
+        "docs": "https://github.com/fork/craft-transform/blob/master/README.md",
+        "issues": "https://github.com/fork/craft-transform/issues"
     },
     "license": "MIT",
     "authors": [
@@ -35,7 +35,7 @@
         "handle": "transform",
         "hasCpSettings": false,
         "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/fork/transform/master/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/fork/craft-transform/master/CHANGELOG.md",
         "components": {
             "data": "fork\\transform\\services\\Data"
         },
