@@ -32,7 +32,7 @@ Install the package
 
 ```sh
 cd /path/to/project
-composer require fork/transform
+composer require fork/craft-transform
 ```
 
 **2. Configure namespace and create transformers**
