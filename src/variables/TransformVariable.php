@@ -42,10 +42,10 @@ class TransformVariable
      *
      * @param $element
      * @param string|null $transformer
-     * @return string
+     * @return array
      * @throws \Exception
      */
-    public function getData($element, $transformer = null)
+    public function getData($element, $transformer = null): array
     {
         return Transform::$plugin->data->transform($element, $transformer);
     }
