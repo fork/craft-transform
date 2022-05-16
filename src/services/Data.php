@@ -55,7 +55,7 @@ class Data extends Component
     /**
      * @inheritdoc
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -79,7 +79,7 @@ class Data extends Component
      * @return mixed
      * @throws \Exception
      */
-    public function transform($element, $transformer = null)
+    public function transform($element, $transformer = null): array
     {
         if (is_string($transformer)) {
             $namespace = $this->settings->transformerNamespace;
