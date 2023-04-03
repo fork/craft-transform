@@ -2,7 +2,7 @@
     "name": "fork/craft-transform",
     "description": "Transform Craft Element and field data structures",
     "type": "craft-plugin",
-    "version": "2.0.0",
+    "version": "2.1.1",
     "keywords": [
         "craft",
         "cms",
