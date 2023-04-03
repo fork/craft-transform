@@ -93,7 +93,10 @@ class Data extends Component
             }
         }
 
-        if ($this->settings->enableCache && method_exists($transformer, 'getCacheKey')) {
+        $request = Craft::$app->getRequest();
+        $ignoreCache = $request->getIsLivePreview() || $request->getToken();
+
+        if ($this->settings->enableCache && !$ignoreCache && method_exists($transformer, 'getCacheKey')) {
             $cacheKey = $transformer->getCacheKey($element);
             $cached = Craft::$app->getCache()->get($cacheKey) ?: null;
 
