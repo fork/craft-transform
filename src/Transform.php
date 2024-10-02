@@ -10,6 +10,7 @@
 
 namespace fork\transform;
 
+use Craft;
 use craft\base\Model;
 use craft\base\Plugin;
 use craft\web\twig\variables\CraftVariable;
@@ -76,6 +77,14 @@ class Transform extends Plugin
         parent::init();
         self::$plugin = $this;
 
+        // Defer most setup tasks until Craft is fully initialized
+        Craft::$app->onInit(function() {
+            $this->attachEventHandlers();
+        });
+    }
+
+    private function attachEventHandlers(): void
+    {
         // Register our variables
         Event::on(
             CraftVariable::class,
