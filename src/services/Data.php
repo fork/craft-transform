@@ -18,6 +18,7 @@ use fork\transform\Transform;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\ArraySerializer;
+use League\Fractal\TransformerAbstract;
 use yii\web\BadRequestHttpException;
 
 /**
@@ -75,12 +76,50 @@ class Data extends Component
      *     Transform::$plugin->data->transform()
      *
      * @param $element
-     * @param null $transformer
+     * @param TransformerAbstract|string|null $transformer
      * @return mixed
      * @throws MissingTransformerException
      * @throws BadRequestHttpException
      */
     public function transform($element, $transformer = null): array
+    {
+        $transformer = $this->getTransformerInstance($transformer);
+
+        $request = Craft::$app->getRequest();
+        $ignoreCache = $request->getIsLivePreview() || $request->getToken();
+
+        if ($this->settings->enableCache && !$ignoreCache && method_exists($transformer, 'getCacheKey')) {
+            $cacheKey = $transformer->getCacheKey($element);
+            $cached = Craft::$app->getCache()->get($cacheKey) ?: null;
+
+            if ($cached) {
+                return $cached;
+            } else {
+                $elementsService = Craft::$app->getElements();
+                $elementsService->startCollectingCacheInfo();
+
+                $resource = new Item($element, $transformer);
+                $data = $this->fractal->createData($resource)->toArray();
+
+                $dependency = $elementsService->stopCollectingCacheInfo();
+
+                Craft::$app->getCache()->set($cacheKey, $data, null, $dependency);
+
+                return $data;
+            }
+        } else {
+            $resource = new Item($element, $transformer);
+
+            return $this->fractal->createData($resource)->toArray();
+        }
+    }
+
+    /**
+     * @param TransformerAbstract|string|null $transformer
+     * @return TransformerAbstract|null
+     * @throws MissingTransformerException
+     */
+    private function getTransformerInstance($transformer = null): ?TransformerAbstract
     {
         if (is_string($transformer)) {
             $namespace = $this->settings->transformerNamespace;
@@ -94,32 +133,6 @@ class Data extends Component
             }
         }
 
-        $request = Craft::$app->getRequest();
-        $ignoreCache = $request->getIsLivePreview() || $request->getToken();
-
-        if ($this->settings->enableCache && !$ignoreCache && method_exists($transformer, 'getCacheKey')) {
-            $cacheKey = $transformer->getCacheKey($element);
-            $cached = Craft::$app->getCache()->get($cacheKey) ?: null;
-
-            if ($cached) {
-                return $cached;
-            } else {
-                $elementsService = Craft::$app->getElements();
-                $elementsService->startCollectingCacheTags();
-
-                $resource = new Item($element, $transformer);
-                $data = $this->fractal->createData($resource)->toArray();
-
-                $dependency = $elementsService->stopCollectingCacheTags();
-
-                Craft::$app->getCache()->set($cacheKey, $data, null, $dependency);
-
-                return $data;
-            }
-        } else {
-            $resource = new Item($element, $transformer);
-
-            return $this->fractal->createData($resource)->toArray();
-        }
+        return $transformer;
     }
 }
