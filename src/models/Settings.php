@@ -12,13 +12,13 @@ class Settings extends Model
      *
      * @var string
      */
-    public $transformerNamespace;
+    public string $transformerNamespace;
 
     /**
      * Enable caching if Transformer provides "getCacheKey()" method
      *
      * @var bool
      */
-    public $enableCache;
+    public bool $enableCache;
 }
 

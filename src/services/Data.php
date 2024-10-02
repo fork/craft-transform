@@ -12,13 +12,13 @@ namespace fork\transform\services;
 
 use Craft;
 use craft\base\Component;
+use fork\transform\exceptions\MissingTransformerException;
 use fork\transform\models\Settings;
 use fork\transform\Transform;
-use fork\transform\transformers\elements\ElementTransformer;
-use fork\transform\transformers\fields\basic\FieldTransformer;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\ArraySerializer;
+use yii\web\BadRequestHttpException;
 
 /**
  * Data Service
@@ -38,16 +38,16 @@ class Data extends Component
     /**
      * The configuration settings (from config file)
      *
-     * @var Settings
+     * @var Settings|null
      */
-    public $settings;
+    public ?Settings $settings;
 
     /**
      * The fractal manager instance
      *
      * @var Manager
      */
-    public $fractal;
+    public Manager $fractal;
 
     // Public Methods
     // =========================================================================
@@ -77,7 +77,8 @@ class Data extends Component
      * @param $element
      * @param null $transformer
      * @return mixed
-     * @throws \Exception
+     * @throws MissingTransformerException
+     * @throws BadRequestHttpException
      */
     public function transform($element, $transformer = null): array
     {
@@ -88,7 +89,7 @@ class Data extends Component
                 if (class_exists($className)) {
                     $transformer = new $className();
                 } else {
-                    throw new \Exception('No Transformer found: ' . $className);
+                    throw new MissingTransformerException('No Transformer found: ' . $className);
                 }
             }
         }
@@ -117,8 +118,8 @@ class Data extends Component
             }
         } else {
             $resource = new Item($element, $transformer);
-            $data = $this->fractal->createData($resource)->toArray();
-            return $data;
+
+            return $this->fractal->createData($resource)->toArray();
         }
     }
 }

@@ -10,7 +10,9 @@
 
 namespace fork\transform\variables;
 
+use fork\transform\exceptions\MissingTransformerException;
 use fork\transform\Transform;
+use yii\web\BadRequestHttpException;
 
 /**
  * Transform Variable
@@ -43,9 +45,10 @@ class TransformVariable
      * @param $element
      * @param string|null $transformer
      * @return array
-     * @throws \Exception
+     * @throws MissingTransformerException
+     * @throws BadRequestHttpException
      */
-    public function getData($element, $transformer = null): array
+    public function getData($element, ?string $transformer = null): array
     {
         return Transform::$plugin->data->transform($element, $transformer);
     }
