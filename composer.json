@@ -30,6 +30,16 @@
           "fork\\transform\\": "src/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    },
     "extra": {
         "name": "Transform",
         "handle": "transform",
@@ -40,5 +50,14 @@
             "data": "fork\\transform\\services\\Data"
         },
         "class": "fork\\transform\\Transform"
+    },
+    "scripts": {
+        "fix-cs": "php-cs-fixer fix src",
+        "phpstan": "phpstan --memory-limit=1G"
+    },
+    "require-dev": {
+        "craftcms/phpstan": "dev-main",
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^1.12"
     }
 }
