@@ -21,4 +21,3 @@ class Settings extends Model
      */
     public bool $enableCache;
 }
-
