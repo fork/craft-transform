@@ -66,12 +66,12 @@ class Data extends Component
      *     Transform::$plugin->data->transform()
      *
      * @param $element
-     * @param TransformerAbstract|string|null $transformer
+     * @param string|TransformerAbstract|null $transformer
      * @return array
      * @throws BadRequestHttpException
      * @throws MissingTransformerException
      */
-    public function transform($element, $transformer = null): array
+    public function transform($element, string|TransformerAbstract|null $transformer = null): array
     {
         $transformer = $this->getTransformerInstance($transformer);
 
@@ -105,11 +105,11 @@ class Data extends Component
     }
 
     /**
-     * @param TransformerAbstract|string|null $transformer
+     * @param string|TransformerAbstract|null $transformer
      * @return TransformerAbstract|null
      * @throws MissingTransformerException
      */
-    private function getTransformerInstance($transformer = null): ?TransformerAbstract
+    private function getTransformerInstance(string|TransformerAbstract|null $transformer = null): ?TransformerAbstract
     {
         if (is_string($transformer)) {
             $namespace = Transform::$plugin->settings->transformerNamespace;
