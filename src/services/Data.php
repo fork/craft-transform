@@ -13,7 +13,6 @@ namespace fork\transform\services;
 use Craft;
 use craft\base\Component;
 use fork\transform\exceptions\MissingTransformerException;
-use fork\transform\models\Settings;
 use fork\transform\Transform;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
@@ -37,13 +36,6 @@ use yii\web\BadRequestHttpException;
 class Data extends Component
 {
     /**
-     * The configuration settings (from config file)
-     *
-     * @var Settings|null
-     */
-    public ?Settings $settings;
-
-    /**
      * The fractal manager instance
      *
      * @var Manager
@@ -60,10 +52,8 @@ class Data extends Component
     {
         parent::init();
 
-        $this->settings = Transform::$plugin->getSettings();
-
         $this->fractal = new Manager();
-        // default is DataArraySerializer with nested 'data' attribute (maybe useful too if meta an pagination is included?)
+        // default is DataArraySerializer with nested 'data' attribute (maybe useful too if meta a pagination is included?)
         $this->fractal->setSerializer(new ArraySerializer());
     }
 
@@ -76,19 +66,19 @@ class Data extends Component
      *     Transform::$plugin->data->transform()
      *
      * @param $element
-     * @param TransformerAbstract|string|null $transformer
-     * @return mixed
-     * @throws MissingTransformerException
+     * @param string|TransformerAbstract|null $transformer
+     * @return array
      * @throws BadRequestHttpException
+     * @throws MissingTransformerException
      */
-    public function transform($element, $transformer = null): array
+    public function transform($element, string|TransformerAbstract|null $transformer = null): array
     {
         $transformer = $this->getTransformerInstance($transformer);
 
         $request = Craft::$app->getRequest();
         $ignoreCache = $request->getIsLivePreview() || $request->getToken();
 
-        if ($this->settings->enableCache && !$ignoreCache && method_exists($transformer, 'getCacheKey')) {
+        if (Transform::$plugin->settings->enableCache && !$ignoreCache && method_exists($transformer, 'getCacheKey')) {
             $cacheKey = $transformer->getCacheKey($element);
             $cached = Craft::$app->getCache()->get($cacheKey) ?: null;
 
@@ -115,14 +105,14 @@ class Data extends Component
     }
 
     /**
-     * @param TransformerAbstract|string|null $transformer
+     * @param string|TransformerAbstract|null $transformer
      * @return TransformerAbstract|null
      * @throws MissingTransformerException
      */
-    private function getTransformerInstance($transformer = null): ?TransformerAbstract
+    private function getTransformerInstance(string|TransformerAbstract|null $transformer = null): ?TransformerAbstract
     {
         if (is_string($transformer)) {
-            $namespace = $this->settings->transformerNamespace;
+            $namespace = Transform::$plugin->settings->transformerNamespace;
             if ($namespace) {
                 $className = $namespace . '\\' . $transformer . 'Transformer';
                 if (class_exists($className)) {

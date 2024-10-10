@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.1.0 - 2024-10-10
+### Changed
+- Require PHP ^8.0
+- Improve code quality with phpstan and php cs fixer
+
 ## 3.0.0 - 2024-10-10
 ### Changed
 - Update to Fractal ^0.20.1

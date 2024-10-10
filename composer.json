@@ -2,7 +2,7 @@
     "name": "fork/craft-transform",
     "description": "Transform Craft Element and field data structures",
     "type": "craft-plugin",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "keywords": [
         "craft",
         "cms",
@@ -22,12 +22,23 @@
         }
     ],
     "require": {
+        "php": "^8.0",
         "craftcms/cms": "^4.0",
         "league/fractal": "^0.20.1"
     },
     "autoload": {
         "psr-4": {
           "fork\\transform\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
         }
     },
     "extra": {
@@ -40,5 +51,14 @@
             "data": "fork\\transform\\services\\Data"
         },
         "class": "fork\\transform\\Transform"
+    },
+    "scripts": {
+        "fix-cs": "php-cs-fixer fix src",
+        "phpstan": "phpstan --memory-limit=1G"
+    },
+    "require-dev": {
+        "craftcms/phpstan": "dev-main",
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^1.12"
     }
 }

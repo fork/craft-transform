@@ -34,6 +34,8 @@ use yii\base\Event;
  * @since     1.0.0
  *
  * @property  DataService $data
+ * @property  Settings $settings
+ * @method    Settings getSettings()
  */
 class Transform extends Plugin
 {
@@ -78,7 +80,7 @@ class Transform extends Plugin
         self::$plugin = $this;
 
         // Defer most setup tasks until Craft is fully initialized
-        Craft::$app->onInit(function() {
+        Craft::$app->onInit(function () {
             $this->attachEventHandlers();
         });
     }
