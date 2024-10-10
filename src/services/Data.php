@@ -101,7 +101,7 @@ class Data extends Component
                 $resource = new Item($element, $transformer);
                 $data = $this->fractal->createData($resource)->toArray();
 
-                $dependency = $elementsService->stopCollectingCacheInfo();
+                [$dependency, ] = $elementsService->stopCollectingCacheInfo();
 
                 Craft::$app->getCache()->set($cacheKey, $data, null, $dependency);
 
