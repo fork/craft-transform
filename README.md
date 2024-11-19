@@ -1,6 +1,8 @@
 <div align="left">
-  <img width="600" title="Craft Transform" src="https://github.fork.de/CraftTransform_031120.svg">
+  <img width="600" title="Craft Transform" src="resources/img/plugin-logo.png" alt="Craft Transform" />
 </div>
+
+# Transform Plugin for Craft 5.x
 
 **Table of contents**
 
@@ -22,7 +24,7 @@
 
 ## Requirements
 
-- Craft CMS >= 3.5.x
+- Craft CMS >= 5.x
 
 ## Setup
 
@@ -96,7 +98,7 @@ class FooterTransformer extends TransformerAbstract {
 ## Usage
 
 In your templates you can use `craft.transform.getData()`. The first parameter is optional. It could be your `entry` to get the data from.
-Also it could be `null`. The second parameter must match with the corresponding Transformer class. E.g. pass `'Footer'` to use the `FooterTransformer`.
+Also, it could be `null`. The second parameter must match with the corresponding Transformer class. E.g. pass `'Footer'` to use the `FooterTransformer`.
 
 ```twig
 {% set articleData = {
@@ -122,7 +124,7 @@ Also it could be `null`. The second parameter must match with the corresponding 
 ---
 
 <div align="center">
-  <img src="https://github.fork.de/heart.png" width="38" height="41" alt="Fork Logo" />
+  <img src="resources/img/heart.png" width="38" height="41" alt="Made with love by Fork" />
 
   <p>Brought to you by <a href="https://www.fork.de">Fork Unstable Media GmbH</a></p>
 </div>
