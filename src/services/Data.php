@@ -12,6 +12,7 @@ namespace fork\transform\services;
 
 use Craft;
 use craft\base\Component;
+use craft\base\Element;
 use fork\transform\exceptions\MissingTransformerException;
 use fork\transform\Transform;
 use League\Fractal\Manager;
@@ -90,6 +91,12 @@ class Data extends Component
 
                 $resource = new Item($element, $transformer);
                 $data = $this->fractal->createData($resource)->toArray();
+
+                array_walk_recursive($data, function (&$value, $key) {
+                    if ($value instanceof Element) {
+                        $value->eagerLoadInfo = null;
+                    }
+                });
 
                 [$dependency, ] = $elementsService->stopCollectingCacheInfo();
 

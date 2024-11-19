@@ -2,7 +2,7 @@
     "name": "fork/craft-transform",
     "description": "Transform Craft Element and field data structures",
     "type": "craft-plugin",
-    "version": "3.1.0",
+    "version": "4.0.0",
     "keywords": [
         "craft",
         "cms",
@@ -22,8 +22,8 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "craftcms/cms": "^4.0",
+        "php": "^8.2",
+        "craftcms/cms": "^5.0",
         "league/fractal": "^0.20.1"
     },
     "autoload": {
