@@ -1,4 +1,4 @@
-<div>
+<div align="left">
   <img width="600" title="Craft Transform" src="resources/img/plugin-logo.png" alt="Craft Transform" />
 </div>
 
@@ -123,7 +123,7 @@ Also, it could be `null`. The second parameter must match with the corresponding
 
 ---
 
-<div>
+<div align="center">
   <img src="resources/img/heart.png" width="38" height="41" alt="Made with love by Fork" />
 
   <p>Brought to you by <a href="https://www.fork.de">Fork Unstable Media GmbH</a></p>
