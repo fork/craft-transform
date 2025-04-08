@@ -95,6 +95,7 @@ class Data extends Component
                 array_walk_recursive($data, function (&$value, $key) {
                     if ($value instanceof Element) {
                         $value->eagerLoadInfo = null;
+                        $value->elementQueryResult = null;
                     }
                 });
 
