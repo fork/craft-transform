@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.2 - 2025-09-24
+### Fixed
+- Fixed an issue where live preview requests weren't detected correctly, resulting in them being cached
+
 ## 4.0.1 - 2025-04-08
 ### Fixed
 - Fixed an issue with eager loaded elements not being serializable
