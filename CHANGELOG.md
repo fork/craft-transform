@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.3 - 2025-11-10
+### Fixed
+- Update the way we determine whether a site should be cached or not
+- Dev mode now disables caching, regardless of the plugin's settings
+
 ## 4.0.2 - 2025-09-24
 ### Fixed
 - Fixed an issue where live preview requests weren't detected correctly, resulting in them being cached
