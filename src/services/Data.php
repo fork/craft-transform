@@ -14,6 +14,7 @@ use Craft;
 use craft\base\Component;
 use craft\base\Element;
 use fork\transform\exceptions\MissingTransformerException;
+use fork\transform\helpers\CacheHelper;
 use fork\transform\Transform;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
@@ -76,10 +77,10 @@ class Data extends Component
     {
         $transformer = $this->getTransformerInstance($transformer);
 
-        $request = Craft::$app->getRequest();
-        $ignoreCache = $request->getQueryParam('x-craft-live-preview') || $request->getIsLivePreview() || $request->getToken();
-
-        if (Transform::$plugin->settings->enableCache && !$ignoreCache && method_exists($transformer, 'getCacheKey')) {
+        if (Transform::$plugin->settings->enableCache
+            && !CacheHelper::ignoreCache()
+            && method_exists($transformer, 'getCacheKey')
+        ) {
             $cacheKey = $transformer->getCacheKey($element);
             $cached = Craft::$app->getCache()->get($cacheKey) ?: null;
 
